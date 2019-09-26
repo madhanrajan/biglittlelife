@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap_pagination %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+    <div class="container">
+        <a href={% url 'post_add'%}>
+            <div class="jumbotron bg-dark">
+                <center>
+                    <h1 style="color: white;"><i class="fa fa-plus">&nbsp;Share your story</i></i></h1>
+
+                </center>
+            </div>
+        </a>
+    </div>
+           
+           
+
+            
+          
+    <div class="d-flex flex-wrap">
+    
+    {% for post in post_list %}
+        <div class="post-list container" style="text-decoration: none;">
+	    <div class="jumbotron">
+            <div class="">
+                <div class="panel-body">
+                    <section class="post-heading">
+
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object photo-profile" src={{ post.author.socialaccount_set.all.0.get_avatar_url }} width="60" height="60" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="anchor-username media-heading">&nbsp;{{post.author.username}}</h4>
+                                <p class="anchor-time">&nbsp;Posted on {{post.create_date }}</p>
+                            </div>
+                        </div>
+                        
+                    </section>
+                    <section class="post-body">
+                        <p>{{post.post}}</p>
+                    </section>
+                    <section>
+                        <a href="" class="btn btn-primary like-btn" data-href={{post.get_api_like_url}}>{% if user in post.likes.all %}Unlike{%else%}Like{% endif %} Post | Total: {{post.likes.count}} likes</a>
+                        <a href={% url 'post_detail' pk=post.pk %} class="btn btn-dark">See Comments</a>
+                    </section>                    
+
+               
+                </div>
+            </div>   
+	    </div>
+    </div>
+
+            
+    {% endfor %}
+    </div>
+
+    
+        <div class="container">
+            <div class="jumbotron" style="height: 20%;display: flex;align-items: center;justify-content: center;">
+                {% bootstrap_paginate page_obj range=10 %}
+
+            </div>   
+        </div> 
+    
+        
+    </div>
+    <script>
+        
+        
+
+</script>
+
+
+
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% include 'blog/base.html' %}
+
+
+<div class="jumbotron container">
+    <center>
+    <form method="POST">
+    {% csrf_token %}
+    <h1>Are you sure you want to delete {{comment.comment}}?</h1>
+    <a class="btn btn-secondary" href={% url 'post_detail' pk=comment.post.pk%}>Cancel</a>
+    <input type="submit" class="btn btn-danger" value="Confirm">
+    </form>
+    </center>
+</div>

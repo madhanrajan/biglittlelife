@@ -1,0 +1,124 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap_pagination %}
+
+<h1><a href={% url 'post_list' %}>Home</a></h5>
+
+<script>
+{% block jquery %}
+    $(".like-btn").click(function (e) {
+        e.preventDefault()
+        this_ = $(this)
+        likeUrl = this_.attr("data-href")
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data: {},
+            success: function (data) {
+                this_.text(data.text)
+
+
+
+            }, error: function (error) {
+                location.href = "{% url 'account_login' %}"
+            }
+        })
+    })
+    {% endblock jquery %}
+
+
+
+</script>
+
+
+
+
+{% block content %}
+
+    <div class="post-detail">
+	    <div class="jumbotron bg-dark text-light">
+            <div class="">
+                <div class="panel-body">
+                    <section class="post-heading">
+
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object photo-profile" src={{ post.author.socialaccount_set.all.0.get_avatar_url }} width="60" height="60" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="anchor-username media-heading text-light">&nbsp;{{post.author.username}}</h4>
+                                <p class="anchor-time">&nbsp;Posted on {{post.create_date }}</p>
+                            </div>
+                        </div>
+                        
+                    </section>
+                    <section class="post-body">
+                        <p>{{post.post}}</p>
+                    </section>
+                    <section>
+                        <p>Conments: {{post.comments.count}}</p>
+                        
+                        <a href="" class="btn btn-primary like-btn" data-href={{post.get_api_like_url}}>{% if user in post.likes.all %}Unlike{%else%}Like{% endif %} Post | Total: {{post.likes.count}} likes</a>
+                        <a href={% url 'comment_add' pk=post.pk %} class="btn btn-light">Add a Comment</a>
+                        {% if isAuthenticated %}
+                            <a class="btn btn-danger" href={% url 'post_delete' pk=post.pk %}>Delete Post</a>
+                        {% endif %}
+                    </section>    
+               
+                </div>
+            </div>   
+	    </div>
+    </div>
+
+    
+
+    <h2>Comments</h2>
+
+    {% for comment in object_list %}
+        
+    <div class="post-list container" >
+	    <div class="jumbotron">
+            <div class="">
+                <div class="panel-body">
+                    <section class="post-heading">
+
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object photo-profile" src={{ post.author.socialaccount_set.all.0.get_avatar_url }} width="60" height="60" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="anchor-username media-heading">&nbsp;{{comment.author.username}}</h4>
+                                <p class="anchor-time">&nbsp;Posted on {{comment.create_date }}</p>
+                            </div>
+                        </div>
+                        
+                    </section>
+                    <section class="post-body">
+                        <p>{{comment.comment}}</p>
+                    </section>
+                    <section>
+                        <a class='btn btn-dark' href={% url 'comment_detail' pk=comment.pk %}>See in context</a>
+                    </section>
+               
+                </div>
+            </div>   
+	    </div>
+    </a>
+    {% empty %}
+        <p>This post does not have any comments.</p> 
+        
+    {% endfor %}
+
+        
+    <div class="jumbotron" style="height: 20%;display: flex;align-items: center;justify-content: center;">
+        {% bootstrap_paginate page_obj range=10 %}
+    </div>
+
+
+        
+
+
+       
+
+    
+
+{% endblock content %}

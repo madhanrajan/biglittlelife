@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+   <style>
+        body{
+            background-image: url('static/img/background.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+        
+        body{
+            padding-top: 20px;
+        }
+
+        
+    </style>
+    <div class="container">
+        <center>
+            <h1>BigLittle.Life</h1>
+            <br>
+            <h2>Everyone has a story to share!</h1>
+            <h4>Share yours and let the world hear you</h3>
+            <a style="color:white;" href={% url 'post_list' %} class="btn btn-dark">Start Here</a>
+
+        </center>
+    </div>
+
+
+
+{% endblock content %}
+
+ 

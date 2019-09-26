@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+    
+    <div class="container">
+      <div class="jumbotron">
+        <center>
+          <p>Please sign in with Facebook to continue!</p>
+          <form action={% provider_login_url 'facebook' method='oauth2'%}>
+              <button class="loginBtn loginBtn--facebook">Login with Facebook</button>
+            </form>
+
+        </center>
+        
+      </div>
+    </div>
+
+
+{% endblock %}

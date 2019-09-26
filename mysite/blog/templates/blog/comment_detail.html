@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="container jumbotron">
+        
+        <h1>{{comment.comment}}</h1>
+        <h2>Comment by: {{comment.author}}</h2>
+        <h3>Date created: {{comment.create_date}}</h3>
+
+        <a class="btn btn-secondary" href={% url 'post_detail' pk=comment.post.pk%}>Go back</a>
+
+        {% if isAuthenticated %}
+            <a class="btn btn-danger" href={% url 'comment_delete' pk=comment.pk %}>Delete Comment</a>
+        {% endif %}
+    
+    </div>
+
+{% endblock content %}
