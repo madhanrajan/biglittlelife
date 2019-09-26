@@ -28,7 +28,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'blog', 'static')
 SECRET_KEY = '_-==mx5#x8hrm!&t-awnz-k)=+yjb221k#uryz4ae$bx@)7yze'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['68.183.154.129']
 
