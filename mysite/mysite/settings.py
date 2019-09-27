@@ -30,7 +30,7 @@ SECRET_KEY = '_-==mx5#x8hrm!&t-awnz-k)=+yjb221k#uryz4ae$bx@)7yze'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['biglittle.life', 'www.biglittle.life', '68.183.154.129']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
