@@ -1,5 +1,4 @@
-{% load socialaccount %}
-{% providers_media_js %}
+
 {% load staticfiles %}
 
 <!doctype html>
@@ -63,7 +62,7 @@
             </li>
 
           {% else %}
-            <form action={% provider_login_url 'facebook' method='oauth2'%}>
+            <form action={% url 'social:begin' 'facebook' %}>
               <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button>
             </form>
 

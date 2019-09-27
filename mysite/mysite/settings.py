@@ -30,7 +30,7 @@ SECRET_KEY = '_-==mx5#x8hrm!&t-awnz-k)=+yjb221k#uryz4ae$bx@)7yze'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['biglittle.life', 'www.biglittle.life', '68.183.154.129']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,10 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # Installed 3rd party apps
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    'social_django',
     'django_extensions',
     'profanity_check',
     'crispy_forms',
@@ -86,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # add this
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -97,24 +96,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-# else:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mysite',
-        'USER': 'madhan',
-        'PASSWORD': 'stayreal357',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mysite',
+            'USER': 'madhan',
+            'PASSWORD': 'stayreal357',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
@@ -163,49 +162,35 @@ STATICFILES_DIRS = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
 
 ]
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = 'post_list'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'post_list'
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
-POSTMAN_DISALLOW_ANONYMOUS = True
 
-POSTMAN_DISALLOW_MULTIRECIPIENTS = True
+SOCIAL_AUTH_FACEBOOK_KEY = "667223813760631"        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = "a593a04303ddb231aa296ae561896662"  # App Secret
 
-POSTMAN_DISALLOW_COPIES_ON_REPLY = True
-
-POSTMAN_AUTOCOMPLETER_APP = {
-    'name': 'ajax_select',  # default is 'ajax_select'
-    'field': 'AutoCompleteField',  # default is 'AutoCompleteField'
-    'arg_name': 'channel',  # default is 'channel'
-    'arg_default': 'postman_friends',  # no default, mandatory to enable the feature
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']  # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+    'fields': 'id, name, email, picture.type(large), link'
 }
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-     {'METHOD': 'oauth2',
-      'SCOPE': ['email', 'public_profile', 'user_friends'],
-      'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-      'FIELDS': [
-          'id',
-          'email',
-          'name',
-          'first_name',
-          'last_name',
-          'verified',
-          'locale',
-          'timezone',
-          'link',
-          'gender',
-          'updated_time'],
-      'EXCHANGE_TOKEN': True,
-      'LOCALE_FUNC': lambda request: 'kr_KR',
-      'VERIFIED_EMAIL': False,
-      'VERSION': 'v2.4'}}
