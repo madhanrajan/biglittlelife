@@ -1,5 +1,5 @@
 {% load socialaccount %}
-{% comment %} {% providers_media_js %} {% endcomment %}
+{% providers_media_js %}
 {% load staticfiles %}
 
 <!doctype html>
@@ -63,9 +63,9 @@
             </li>
 
           {% else %}
-            {% comment %} <form action={% provider_login_url 'facebook' method='oauth2'%}> {% endcomment %}
-              {% comment %} <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button> {% endcomment %}
-            {% comment %} </form> {% endcomment %}
+            <form action={% provider_login_url 'facebook' method='oauth2'%}>
+              <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button>
+            </form>
 
           {% endif %}
         </div>
