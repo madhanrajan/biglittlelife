@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 
+=======
+{% load socialaccount %}
+{% comment %} {% providers_media_js %} {% endcomment %}
+>>>>>>> parent of 91eea44... fb
 {% load staticfiles %}
 
 <!doctype html>
@@ -62,9 +67,15 @@
             </li>
 
           {% else %}
+<<<<<<< HEAD
             <form action={% url 'social:begin' 'facebook' %}>
               <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button>
             </form>
+=======
+            {% comment %} <form action={% provider_login_url 'facebook' method='oauth2'%}> {% endcomment %}
+              {% comment %} <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button> {% endcomment %}
+            {% comment %} </form> {% endcomment %}
+>>>>>>> parent of 91eea44... fb
 
           {% endif %}
         </div>
