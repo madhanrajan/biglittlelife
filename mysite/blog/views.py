@@ -181,3 +181,11 @@ class PostSearchView(ListView):
 
 class Index(TemplateView):
     template_name = 'blog/index.html'
+
+
+def login(request):
+    return render(request, 'account/login.html')
+
+
+def logout(request):
+    return render(request, 'account/logout.html')
