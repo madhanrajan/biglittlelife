@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 
-=======
-{% load socialaccount %}
-{% comment %} {% providers_media_js %} {% endcomment %}
->>>>>>> parent of 91eea44... fb
 {% load staticfiles %}
 
 <!doctype html>
@@ -43,20 +38,18 @@
         <div class="navbar-nav mr-auto">
           <a class="nav-item nav-link" href={% url 'user_post_list' %}>My Posts <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href={% url 'index' %}>About Us</a>
+          <form action={% url 'posts_search' %} class="searchbar">
+          <input class="search_input" type="text" name="q" placeholder="Search by Post, Author or Date Created">
+          <input="sumbot" class="search_icon"><i class="fas fa-search"></i></button>
+        </form>
         </div>
       
 
         <div class="navbar-nav ml-auto">
-         <div class="d-flex justify-content-center h-100 nav-item nav-link">
-        <form action={% url 'posts_search' %} class="searchbar">
-          <input class="search_input" type="text" name="q" placeholder="Search by Post, Author or Date Created">
-          <input="sumbot" class="search_icon"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-          &nbsp;
-
-
-          {% if user.is_authenticated %}
+         {% comment %} <div class="d-flex justify-content-center h-100 nav-item nav-link"> {% endcomment %}
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img class="media-object photo-profile" src={{ user.socialaccount_set.all.0.get_avatar_url }} width="40" height="40" alt={% static 'img/user_default.jpg' %}>
@@ -67,17 +60,13 @@
             </li>
 
           {% else %}
-<<<<<<< HEAD
-            <form action={% url 'social:begin' 'facebook' %}>
-              <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button>
-            </form>
-=======
-            {% comment %} <form action={% provider_login_url 'facebook' method='oauth2'%}> {% endcomment %}
-              {% comment %} <button class="nav-item loginBtn loginBtn--facebook">Login with Facebook</button> {% endcomment %}
-            {% comment %} </form> {% endcomment %}
->>>>>>> parent of 91eea44... fb
-
+              <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
           {% endif %}
+      </div>
+          &nbsp;
+          
+
+          
         </div>
       </div>
       
