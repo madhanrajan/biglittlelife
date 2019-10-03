@@ -191,6 +191,9 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('link', 'profile_url'),
 ]
 
+SOCIAL_AUTH_FACEBOOK_WHITELISTED_DOMAINS = [
+    'biglittle.life', 'www.biglittle.life']
+
 # ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 
